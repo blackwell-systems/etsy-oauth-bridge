@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Etsy authorization — returning to your machine…</title>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<p style="font-family: sans-serif">Completing Etsy authorization — returning to the local tool…</p>
+<p style="font-family: sans-serif">If nothing happens, <a id="go" href="#">click here</a>.</p>
+<script>
+// OAuth redirect bridge: Etsy delivers ?code=&state= to this public HTTPS page
+// (registered as the app's callback URL); we forward the query string to the
+// local listener, which completes the PKCE token exchange. The authorization
+// code is single-use and PKCE-protected; it transits here only in the browser.
+(function () {
+  var target = "https://localhost:3003/oauth/redirect" + window.location.search;
+  document.getElementById("go").href = target;
+  window.location.replace(target);
+})();
+</script>
+</body>
+</html>
